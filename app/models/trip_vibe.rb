@@ -1,0 +1,2 @@
+class TripVibe < ApplicationRecord
+end
