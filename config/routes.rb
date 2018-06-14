@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   post 'user_token' => 'user_token#create'
   post "/users" => "users#create"
 
@@ -19,5 +18,25 @@ Rails.application.routes.draw do
     get '/cities' => 'cities#index'
     post '/cities' => 'cities#create'
     get '/cities/:id' => 'cities#show'
+    patch '/cities/:id' => 'cities#update'
+    delete 'cities/:id' => 'cities#destroy'
+
+    get '/recommendations' => 'recommendations#index'
+    post '/recommendations' => 'recommendations#create'
+    get '/recommendations/:id' => 'recommendations#show'
+    patch '/recommendations/:id' => 'recommendations#update'
+    delete '/recommendations/:id' => 'recommendations#destroy'
+
+    get '/vibes' => 'vibes#index'
+    post '/vibes' => 'vibes#create'
+    get '/vibes/:id' => 'vibes#show'
+    patch '/vibes/:id' => 'vibes#update'
+    delete '/vibes/:id' => 'vibes#destroy'
+
+    get '/trip_vibes' => 'trip_vibes#index'
+    post '/trip_vibes' => 'trip_vibes#create'
+    get '/trip_vibes/:id' => 'trip_vibes#show'
+    patch '/trip_vibes/:id' => 'trip_vibes#update'
+    delete '/trip_vibes/:id' => 'vibes#destroy'
   end
 end

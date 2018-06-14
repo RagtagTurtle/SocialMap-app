@@ -1,0 +1,1 @@
+json.array! @trip_vibes, partial: "trip_vibe", as: :trip_vibe

@@ -4,5 +4,7 @@ class City < ApplicationRecord
 
   belongs_to :geography, optional: true
 
+  has_many :recommendations
+
   # validates :city, length: 2
 end

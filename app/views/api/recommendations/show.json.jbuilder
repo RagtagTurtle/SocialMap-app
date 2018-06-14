@@ -1,0 +1,1 @@
+json.partial! @recommendation, partial: "recommendation", as: :recommendation

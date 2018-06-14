@@ -1,7 +1,5 @@
 class Trip < ApplicationRecord
   belongs_to :user
-  # has_many :cities
-  # has_many :city_trips, through: :cities [i believe the below is correct.]
 
   has_many :city_trips
   has_many :cities, through: :city_trips
@@ -13,4 +11,6 @@ class Trip < ApplicationRecord
   has_many :vibes, through: :trip_vibes
 
   has_many :recommendations
+
+  enum category: {hot: 0, warm: 1, mild: 2, crisp: 3, cold: 4}
 end

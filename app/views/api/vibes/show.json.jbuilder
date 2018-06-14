@@ -1,0 +1,1 @@
+json.partial! @vibe, partial: "vibe", as: :vibe

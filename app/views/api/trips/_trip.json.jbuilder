@@ -11,3 +11,7 @@ end
 json.city_trips do
   json.array! trip.city_trips, partial: "api/city_trips/city_trip", as: :city_trip
 end
+
+json.recommendations do
+  json.array! trip.recommendations, partial: "api/recommendations/recommendation", as: :recommendation
+end
