@@ -1,0 +1,1 @@
+json.array! @city_trips, partial: "city_trip", as: :city_trip

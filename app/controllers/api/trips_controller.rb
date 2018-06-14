@@ -13,15 +13,34 @@ class Api::TripsController < ApplicationController
 
   def create
     @trip = Trip.new(
-                      user_id: current_user.id
+                      user_id: current_user.id,
                       climate: params[:climate],
                       start_date: params[:start_date],
                       end_date: params[:end_date]
                     )
     @trip.save
-    puts "*********************"
-    p @trip.errors.full_messages
-    puts "*********************"
     render 'show.json.jbuilder'
+  end
+
+  def update
+    trip_id = params[:id]
+    @trip = Trip.find(trip_id)
+
+    @trip.climate = params[:climate] || @trip.name
+    @trip.start_date = params[:start_date] || @trip.start_date
+    @trip.end_date = params[:end_date] || @trip.end_date
+
+    if @trip.save
+      render 'show.json.jbuilder'
+    else
+      render json: {errors: @trip.errors.full_messages}, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    trip_id = params[:id]
+    @trip = Trip.find(trip_id)
+    @trip.destroy
+    render json: {message: "Trip successfully destroyed."}
   end
 end
