@@ -37,6 +37,18 @@ Rails.application.routes.draw do
     post '/trip_vibes' => 'trip_vibes#create'
     get '/trip_vibes/:id' => 'trip_vibes#show'
     patch '/trip_vibes/:id' => 'trip_vibes#update'
-    delete '/trip_vibes/:id' => 'vibes#destroy'
+    delete '/trip_vibes/:id' => 'tip_vibes#destroy'
+
+    get '/activities' => 'activities#index'
+    post '/activities' => 'activities#create'
+    get '/activities/:id' => 'activities#show'
+    patch '/activities/:id' => 'activities#update'
+    delete '/activities/:id' => 'activities#destroy'
+
+    get '/trip_activities' => 'trip_activities#index'
+    post '/trip_activities' => 'trip_activities#create'
+    get '/trip_activities/:id' => 'trip_activities#show'
+    patch '/trip_activities/:id' => 'trip_activities#update'
+    delete '/trip_activities/:id' => 'trip_activities#destroy'
   end
 end

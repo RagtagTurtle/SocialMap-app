@@ -14,6 +14,8 @@ class Api::TripsController < ApplicationController
   def create
     @trip = Trip.new(
                       user_id: current_user.id,
+                      trip.city => params[:city],
+                      trip.state => params[:state],
                       climate: params[:climate],
                       start_date: params[:start_date],
                       end_date: params[:end_date]

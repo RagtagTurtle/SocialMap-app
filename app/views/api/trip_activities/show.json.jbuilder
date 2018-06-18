@@ -1,0 +1,1 @@
+json.partial! @trip_activity, partial: "trip_activity", as: :trip_activity
