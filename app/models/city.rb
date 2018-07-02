@@ -6,5 +6,5 @@ class City < ApplicationRecord
 
   has_many :recommendations
 
-  # validates :city, length: 2
+  # validates :state, length: 2
 end
