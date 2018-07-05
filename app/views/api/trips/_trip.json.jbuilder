@@ -1,8 +1,11 @@
 json.id trip.id
-json.user trip.user.first_name + " " +trip.user.last_name 
+json.user_first_name trip.user.first_name
+json.user_last_name trip.user.last_name
+
+
 json.climate trip.climate
-json.start_date trip.start_date
-json.end_date trip.end_date
+json.start_date trip.friendly_start_date
+json.end_date trip.friendly_end_date
 
 json.city_trips do
   json.array! trip.city_trips, partial: "api/city_trips/city_trip", as: :city_trip
@@ -19,3 +22,4 @@ end
 json.trip_activities do
   json.array! trip.trip_activities, partial: "api/trip_activities/trip_activity", as: :trip_activity
 end
+

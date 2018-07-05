@@ -12,8 +12,16 @@ class Trip < ApplicationRecord
 
   has_many :recommendations
 
-  enum category: {hot: 0, warm: 1, mild: 2, crisp: 3, cold: 4}
+  enum climate: {hot: 0, warm: 1, mild: 2, crisp: 3, cold: 4}
 
+
+  def friendly_start_date
+    start_date.strftime("%m/%d/%Y")
+  end
+
+  def friendly_end_date
+    end_date.strftime("%m/%d/%Y")
+  end
 
 
   def self.search(options)

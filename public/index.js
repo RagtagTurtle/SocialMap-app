@@ -9,7 +9,7 @@ var TripsIndexPage = {
   },
   created: function() {
     axios
-      .get("api/trips")
+      .get("/api/trips")
       .then(function(response) {
         this.trips = response.data;
       }.bind(this));
@@ -26,7 +26,56 @@ var TripsShowPage = {
         id: "",
         climate: "",
         start_date: "",
-        end_date: ""
+        end_date: "",
+        city_trips: [
+          {
+            id: "",
+            city_id: "",
+            trip_id: "",
+            city: {
+              id: "",
+              geography_id: "",
+              name: "",
+              state: "",
+              region: "",
+            }
+          }
+        ],
+        recommendations: [
+          {
+            id: "",
+            category: "",
+            name: "",
+            trip_id: "",
+            city_id: ""
+          }
+        ],
+        trip_vibes: [
+          {
+            id: "",
+            trip_id: "",
+            vibe_id: "",
+            vibe: [
+              {
+                id: "",
+                name: "",
+              } 
+            ]
+          }
+        ],
+        trip_activities: [
+          {
+            id: "",
+            trip_id: "",
+            activity_id: "",
+            activity: [
+              {
+                id: "",
+                name: ""
+              }
+            ]
+          }
+        ]
       }
     };
   },
@@ -34,7 +83,7 @@ var TripsShowPage = {
     axios
       .get("/api/trips/" + this.$route.params.id )
       .then(function(response) { 
-        this.recipe = response.data;
+        this.trip = response.data;
       }.bind(this));
   },
   methods: {},
