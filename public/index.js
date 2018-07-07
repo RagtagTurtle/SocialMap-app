@@ -4,7 +4,8 @@ var TripsIndexPage = {
   template: "#trips-index-page",
   data: function() {
     return {
-      trips: []
+      trips: [],
+      recommendations: []
     };
   },
   created: function() {
