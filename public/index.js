@@ -95,11 +95,64 @@ var TripsNewPage = {
   template: "#trips-new-page",
   data: function() {
     return {
-      message: "Welcome to Vue.js!"
+      climate: "",
+      start_date: "",
+      end_date: "",
+      bio: "",
+      cover_image: "",
+      errors: []
     };
   },
   created: function() {},
-  methods: {},
+  methods: {
+    submit: function() {
+      var params = {
+        climate: this.climate,
+        start_date: this.start_date,
+        end_date: this.end_date,
+        bio: this.bio,
+        cover_image: this.cover_image
+      };
+      axios
+        .post("/api/trips", params)
+        .then(function(response) {
+          router.push("/trip_vibes/new");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this));
+    }
+  },
+  computed: {}
+};
+
+var TripVibesNewPage = {
+  template: "#trip-vibes-new-page",
+  data: function() {
+    return {
+      trip_id: "",
+      vibe_id: ""
+    };
+  },
+  created: function() {},
+  methods: {
+    submit: function() {
+      var params = {
+        trip_id: this.trip_id,
+        vibe_id: this.vibe_id
+      };
+      axios
+        .post("/api/trip_vibes", params)
+        .then(function(response) {
+          router.push("/#/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this));
+    }
+  },
   computed: {}
 };
 
@@ -198,7 +251,9 @@ var router = new VueRouter({
     { path: "/login", component: LoginPage},
     { path: "/logout", component: LogoutPage},
     { path: "/trips", component: TripsIndexPage},
-    { path: "/trips/:id", component: TripsShowPage}
+    { path: "/trips/new", component: TripsNewPage},
+    { path: "/trips/:id", component: TripsShowPage},
+    { path: "/trip_vibes/new", component: TripVibesNewPage}
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

@@ -75,7 +75,7 @@
               <li class="dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Trips</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown2">
-                  <a class="dropdown-item" href="post-image.html">Post + Image</a>
+                  <a class="dropdown-item" href="/#/trips/new">New Trip</a>
                   <a class="dropdown-item" href="post-video.html">Post + Video</a>
                 </div>
               </li>
@@ -90,13 +90,11 @@
               </li>
 
               <li class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Elements</a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sign Up/Log in</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown4">
-                  <a class="dropdown-item" href="doc-typography.html">Typography</a>
-                  <a class="dropdown-item" href="doc-buttons.html">Buttons</a>
-                  <a class="dropdown-item" href="doc-tables.html">Tables</a>
-                  <a class="dropdown-item" href="doc-forms.html">Forms</a>
-                  <a class="dropdown-item" href="doc-cards.html">Cards</a>
+                  <a class="dropdown-item" href="/#/signup">Sign Up</a>
+                  <a class="dropdown-item" href="/#/login">Log in</a>
+                  <a class="dropdown-item" href="/#/logout">Logout</a>
                 </div>
               </li>
 
@@ -177,30 +175,238 @@
   </body>
 </html>
 
-
+<!-- USING 'FULL WIDTH' HOMEPAGE -->
 <template id="trips-index-page">
   <div class="vue-component">
+    <div v-for="trip in trips">
+      <div id="posts" class="container">
+        <div class="row">
+          <section class="col-md-12 wow fadeIn">
+            <div class="post big">
+              <div class="row">
+                <div class="col-md-6 media">
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity2.jpg" class="img-fluid" />
+                </div>
+                <div class="col-md-6 caption">
+                  <span class="post-tag">{{ trip.id }}</span>
+                  <a href="post-image.html" class="post-title">Don't look at me</a>
+                  <span class="post-date">19 Sept 2015</span>
+                  <p class="post-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis <a href="#">parturient montes</a>, nascetur ridiculus mus. Aenean commodo ligula eget dolor.</p>
+                </div>
+              </div>
+            </div>
+          </section>
 
-    <div class="container">
-      <div class="row">
-      <div v-for="trip in trips" class="col-md-4">
+          <section class="col-md-12 wow fadeIn">
+            <div class="post big">
+              <div class="row">
+                <div class="col-md-6 caption">
+                  <span class="post-tag">{{trip.id}}</span>
+                  <a href="post-image.html" class="post-title">I'm only breathing</a>
+                  <span class="post-date">5 Sept 2015</span>
+                  <p class="post-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis <a href="#">parturient montes</a>, nascetur ridiculus mus. Aenean commodo ligula eget dolor.</p>
+                </div>
+                <div class="col-md-6 media">
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity5.jpg" class="img-fluid" />
+                </div>
+              </div>
+            </div>
+          </section>
 
-        <div class="card mb-4" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">  {{ trip.user_first_name }}  {{ trip.user_last_name }}'s trip to</h5>
-            <h2> {{ trip['city_trips'][0]['city']['name'] }}, {{ trip.city_trips[0].city.state }}</h2>
-            <div class="container">
-            <p> Climate: {{ trip.climate }}</p>
-            <p> {{ trip.start_date}} to {{ trip.end_date}}</p>
-            <!-- <h2>Recommendations: {{trip.recommendations[0]}}</h2> -->
-            <a v-bind:href="'/#/trips/' + trip.id">See more details on trip</a>
-          </div>
+          <section class="col-md-12 wow fadeIn">
+            <div class="post big">
+              <div class="row">
+                <div class="col-md-6 media">
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity6.jpg" class="img-fluid" />
+                </div>
+                <div class="col-md-6 caption">
+                  <span class="post-tag">#travel</span>
+                  <a href="post-image.html" class="post-title">Leave it alone</a>
+                  <span class="post-date">20 Aug 2015</span>
+                  <p class="post-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis <a href="#">parturient montes</a>, nascetur ridiculus mus. Aenean commodo ligula eget dolor.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+  </div>
+  </div>
+</template>
+
+
+<!-- USING 'MASONRY' HOMEPAGE -->
+<!-- <template id="trips-index-page">
+  <div class="vue-component">
+  
+    <div v-for="trip in trips">
+      <div id="posts" class="container">
+        <div class="row">
+
+          <section class="col-md-8 wow fadeIn">
+            <div class="post">
+              <div class="row">
+                <div class="col-md-6 media">
+                  <img v-bind:src="trip.cover_image" class="img-fluid" />
+                </div>
+                <div class="col-md-6 caption">
+                  <span class="post-tag">#{{ trip.id }}</span>
+                  <a v-bind:href="'/#/trips/' + trip.id" class="post-title">{{ trip.city_trips[0].city.name }}</a>
+                  <span class="post-date">{{ trip.start_date}} to {{ trip.end_date}}</span>
+                  <p class="post-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis <a href="#">parturient montes</a>, nascetur ridiculus mus. Aenean commodo ligula eget dolor.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-md-4 wow fadeIn">
+            <div class="post">
+              <div class="media">
+                <div id="slides-1">
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity7.jpg" class="img-fluid" />
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity6.jpg" class="img-fluid" />
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity5.jpg" class="img-fluid" />
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity4.jpg" class="img-fluid" />
+                </div>
+              </div>
+              <div class="caption text-center">
+                <a href="post-image.html" class="post-title">{{ trip.city_trips[0].name }}</a>
+                <span class="post-date">6 Sept 2015</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-md-4 wow fadeIn">
+            <div class="post">
+              <div class="caption">
+
+                <div class="post-thumb">
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity31.jpg" class="img-fluid" />
+                </div>
+
+                <span class="post-tag">#{{ trip.city_trips[0].city.name }}</span>
+                <a href="'/#/trips/' + trip.id" class="post-title">{{ trip.id }}</a>
+                <p class="post-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+                <br />
+                <br />
+                Cum sociis natoque penatibus et magnis dis parturient montes magnis dis parturient montes, nascetur ridiculus mus. Aenean commodo <a href="#">ligula eget dolor</a>.</p>
+                <span class="post-date">13 June 2015</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-md-4 wow fadeIn">
+            <div class="post">
+              <div class="media">
+                <div id="slides-2">
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity6.jpg" class="img-fluid" />
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity2.jpg" class="img-fluid" />
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity1.jpg" class="img-fluid" />
+                </div>
+              </div>
+              <div class="caption text-center">
+                <a href="post-image.html" class="post-title">You're sharp alright</a>
+                <span class="post-date">6 Aug 2015</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-md-4 wow fadeIn">
+            <div class="post">
+              <div class="caption">
+
+                <div class="post-thumb">
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity31.jpg" class="img-fluid" />
+                </div>
+
+                <span class="post-tag">#music</span>
+                <a href="post-image.html" class="post-title">{{ trip.id }}</a>
+                <p class="post-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+                <br />
+                <br />
+                Cum sociis natoque penatibus et magnis dis parturient montes magnis dis parturient montes, nascetur ridiculus mus. Aenean commodo <a href="#">ligula eget dolor</a>.</p>
+                <span class="post-date">13 June 2015</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-md-4 wow fadeIn" style="display:none;">
+            <div class="post">
+              <div class="media">
+                <img src="img/photos/DeathtoStock_EnergyandSerenity10.jpg" class="img-fluid" />
+              </div>
+              <div class="caption text-center">
+                <a href="post-image.html" class="post-title">Can we</a>
+                <span class="post-date">12 Apr 2015</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-md-8 wow fadeIn" style="display:none;">
+            <div class="post">
+              <div class="row">
+                <div class="col-md-6 caption">
+                  <span class="post-tag">#music</span>
+                  <a href="post-image.html" class="post-title">Show a little discipline</a>
+                  <span class="post-date">23 Mar 2015</span>
+                  <p class="post-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. <a href="#">Aenean massa</a>. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean commodo ligula eget dolor.</p>
+                </div>
+                <div class="col-md-6 media">
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity31.jpg" class="img-fluid" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-md-4 wow fadeIn" style="display:none;">
+            <div class="post">
+              <div class="media">
+                <img src="img/photos/DeathtosStockSerenity9.jpg" class="img-fluid" />
+              </div>
+              <div class="caption text-center">
+                <a href="post-image.html" class="post-title">Loose lips</a>
+                <span class="post-date">3 Jan 2015</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-md-4 wow fadeIn" style="display:none;">
+            <div class="post">
+              <div class="media">
+                <img src="img/photos/DeathtoStock_EnergyandSerenity2.jpg" class="img-fluid" />
+              </div>
+              <div class="caption text-center">
+                <a href="post-image.html" class="post-title">Sink</a>
+                <span class="post-date">7 Sept 2014</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-md-4 wow fadeIn" style="display:none;">
+            <div class="post">
+              <div class="media">
+                <img src="img/photos/DeathtoStock_EnergyandSerenity5.jpg" class="img-fluid" />
+              </div>
+              <div class="caption text-center">
+                <a href="post-image.html" class="post-title">Ships</a>
+                <span class="post-date">18 July 2014</span>
+              </div>
+            </div>
+          </section>
+
+          <div class="col-md-12">
+            <div class="text-center">
+              <a href="#" class="btn btn-ada-light load-more">Older posts</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</template>
+  </div>
+</template> -->
+
+
 
 <!-- BASIC SHOW PAGE BUILT - USE FOR TRIP LINKS -->
 <template id="trips-show-page">
@@ -218,6 +424,8 @@
               <h1>{{ trip.city_trips[0].city.name }}</h1>
             </div>
             
+            <iframe src="https://snazzymaps.com/embed/83294" width="100%" height="600px" style="border:none;"></iframe>
+
             <h5>The Vibe(s):</h5>
             <ul>
               <li v-for="vibe in trip.trip_vibes">{{ vibe.vibe.name }}</li>
@@ -270,49 +478,106 @@
   </div>
 </template>
 
-    
-<!--     <div class="container">
-      <h4> Trip ID: {{ trip["id"] }} </h4>
-      <h5>Climate: {{ trip["climate"] }}</h5>
-      <h2>City: {{ trip["city_trips"][0]["city"]["name"]  }}</h2>
-      <p>Start Date: {{ trip["start_date"] }}</p>
-      <p>End Date: {{ trip["end_date"] }}</p>
-    <div>
-      <h2>
-        Recommendations:
-        <ul>
-          <li v-for="recommendation in trip.recommendations">{{recommendation.name}}</li>
-        </ul>
-    </div>
-      </h2>
-    </div> -->
-
-<!-- <template id="trips-index-page">
+<template id="trips-new-page">
   <div class="vue-component">
     <div class="container">
-      <div class="row">
-        <section class="col-md-8 wow fadeIn">
-          <div class="post">
-            <div class="row">
-              <div class="col-md-6 media">
-                <img src="img/photos/DeathtoStock_EnergyandSerenity31.jpg" class="img-fluid" />
-              </div>
-              <div class="col-md-6 caption">
-                <div v-for="trip in trips" class="col-md-4">
-
-                  <h5>  {{ trip.user_first_name }}  {{ trip.user_last_name }}'s trip to</h5>
-                  <h4> {{ trip['city_trips'][0]['city']['name'] }}, {{ trip.city_trips[0].city.state }}</h4>
-                  <h5> {{ trip.climate }}</h5>
-                  <p> {{ trip.start_date}} to {{ trip.end_date}}</p>
-                  <h2>Recommendations: {{trip.recommendations[0]}}</h2>
-                  <a v-bind:href="'/#/trips/' + trip.id">See more details on trip</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+      <h1>New Trip</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Start Date:</label> 
+        <input type="text" class="form-control" v-model="start_date">
       </div>
+      <div class="form-group">
+        <label>End Date:</label>
+        <input type="text" class="form-control" v-model="end_date">
+      </div>
+      <div class="form-group">
+        <label>Climate:</label>
+        <input type="integer" class="form-control" v-model="climate">
+      </div>
+      <div class="form-group">
+        <label>Bio:</label>
+        <input type="text" class="form-control" v-model="bio">
+      </div>
+      <div class="form-group">
+        <label>Cover Image:</label>
+        <input type="text" class="form-control" v-model="cover_image">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
     </div>
   </div>
 </template>
- -->
+
+<template id="trip-vibes-new-page">
+  <div class="vue-component">
+    <div class="container">
+      <h1>New Trip Vibes</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Trip ID:</label> 
+        <input type="integer" class="form-control" v-model="trip_id">
+      </div>
+      <div class="form-group">
+        <label>Vibe ID:</label>
+        <input type="integer" class="form-control" v-model="vibe_id">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+  </div>
+</template>
+
+<template id="signup-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Signup</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" v-model="password">
+      </div>
+      <div class="form-group">
+        <label>Password confirmation:</label>
+        <input type="password" class="form-control" v-model="passwordConfirmation">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
+</template>
+
+<template id="login-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Login</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" v-model="password">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
+</template>

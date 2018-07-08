@@ -1,0 +1,121 @@
+<template id="trips-index-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <div class="row">
+      <div v-for="trip in trips" class="col-md-4">
+
+        <div class="card mb-4" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">  {{ trip.user_first_name }}  {{ trip.user_last_name }}'s trip to</h5>
+            <h2> {{ trip['city_trips'][0]['city']['name'] }}, {{ trip.city_trips[0].city.state }}</h2>
+            <div class="container">
+            <p> Climate: {{ trip.climate }}</p>
+            <p> {{ trip.start_date}} to {{ trip.end_date}}</p>
+            <!-- <h2>Recommendations: {{trip.recommendations[0]}}</h2> -->
+            <a v-bind:href="'/#/trips/' + trip.id">See more details on trip</a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+NEW TRIP FORM THAT DIDN'T WORK
+<h2>New Trip</h2>
+  <form class="form-inline" role="form">
+    <div class="form-group">
+        <h5>Start/End Dates</h5>
+        <label class="sr-only" for="exampleInputEmail2"></label>
+        <input type="text" class="form-control" v-model="start_date" placeholder="mm/dd/yyyy">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="exampleInputPassword2">End Date</label>
+        <input type="text" class="form-control" v-model="end_date" placeholder="mm/dd/yyyy">
+    </div>
+  </form>
+
+  <!-- CLIMATE -->
+    <h5>Climate</h5> <br>
+  <select class="form-control">
+    <option value=0 v-model="climate">Hot (90+)</option>
+    <option value=1 v-model="climate">Warm (75-89)</option>
+    <option value=2 v-model="climate">Mild (56-74)</option>
+    <option value=3 v-model="climate">Crisp (Below 55)</option>
+    <option value=4 v-model="climate">Cold (Below 32)</option>
+  </select>
+  
+  <br>
+  <br>
+  <h5>Bio of trip:</h5>
+  <textarea v-model="bio" cols="100" rows="10"></textarea>
+  <br>
+  <br>
+<button type="button" class="btn btn-primary btn-lg" v-on:click="submit()">Create Trip!</button>
+
+
+<!--       <div class="row">
+      <div v-for="trip in trips" class="col-md-4">
+
+        <div class="card mb-4" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">  {{ trip.user_first_name }}  {{ trip.user_last_name }}'s trip to</h5>
+            <h2> {{ trip['city_trips'][0]['city']['name'] }}, {{ trip.city_trips[0].city.state }}</h2>
+            <div class="container">
+            <p> Climate: {{ trip.climate }}</p>
+            <p> {{ trip.start_date}} to {{ trip.end_date}}</p>
+            <h2>Recommendations: {{trip.recommendations[0]}}</h2>
+            <a v-bind:href="'/#/trips/' + trip.id">See more details on trip</a>
+          </div>
+          </div>
+        </div> -->
+
+
+    
+<!--     <div class="container">
+      <h4> Trip ID: {{ trip["id"] }} </h4>
+      <h5>Climate: {{ trip["climate"] }}</h5>
+      <h2>City: {{ trip["city_trips"][0]["city"]["name"]  }}</h2>
+      <p>Start Date: {{ trip["start_date"] }}</p>
+      <p>End Date: {{ trip["end_date"] }}</p>
+    <div>
+      <h2>
+        Recommendations:
+        <ul>
+          <li v-for="recommendation in trip.recommendations">{{recommendation.name}}</li>
+        </ul>
+    </div>
+      </h2>
+    </div> -->
+
+<!-- <template id="trips-index-page">
+  <div class="vue-component">
+    <div class="container">
+      <div class="row">
+        <section class="col-md-8 wow fadeIn">
+          <div class="post">
+            <div class="row">
+              <div class="col-md-6 media">
+                <img src="img/photos/DeathtoStock_EnergyandSerenity31.jpg" class="img-fluid" />
+              </div>
+              <div class="col-md-6 caption">
+                <div v-for="trip in trips" class="col-md-4">
+
+                  <h5>  {{ trip.user_first_name }}  {{ trip.user_last_name }}'s trip to</h5>
+                  <h4> {{ trip['city_trips'][0]['city']['name'] }}, {{ trip.city_trips[0].city.state }}</h4>
+                  <h5> {{ trip.climate }}</h5>
+                  <p> {{ trip.start_date}} to {{ trip.end_date}}</p>
+                  <h2>Recommendations: {{trip.recommendations[0]}}</h2>
+                  <a v-bind:href="'/#/trips/' + trip.id">See more details on trip</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</template>
+ -->

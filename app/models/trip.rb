@@ -14,7 +14,6 @@ class Trip < ApplicationRecord
 
   enum climate: {hot: 0, warm: 1, mild: 2, crisp: 3, cold: 4}
 
-
   def friendly_start_date
     start_date.strftime("%m/%d/%Y")
   end
