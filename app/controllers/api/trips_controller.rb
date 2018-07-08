@@ -44,7 +44,9 @@ class Api::TripsController < ApplicationController
                       user_id: current_user.id,
                       climate: params[:climate],
                       start_date: params[:start_date],
-                      end_date: params[:end_date]
+                      end_date: params[:end_date],
+                      bio: params[:bio],
+                      cover_image: params[:cover_image]
                     )
     @trip.save
     render 'show.json.jbuilder'
@@ -57,6 +59,8 @@ class Api::TripsController < ApplicationController
     @trip.climate = params[:climate] || @trip.name
     @trip.start_date = params[:start_date] || @trip.start_date
     @trip.end_date = params[:end_date] || @trip.end_date
+    @trip.bio = params[:bio] || @trip.bio
+    @trip.cover_image = params[:cover_image] || @trip.cover_image
 
     if @trip.save
       render 'show.json.jbuilder'

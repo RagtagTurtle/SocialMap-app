@@ -23,6 +23,9 @@ class Trip < ApplicationRecord
     end_date.strftime("%m/%d/%Y")
   end
 
+  def climate_uppercase
+    climate.capitalize
+  end
 
   def self.search(options)
     city_score = 0
