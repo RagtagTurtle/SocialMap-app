@@ -495,7 +495,13 @@
       </div>
       <div class="form-group">
         <label>Climate:</label>
-        <input type="integer" class="form-control" v-model="climate">
+        <select v-model="climate">
+          <option value="hot">Hot (90+)</option>
+          <option value="warm">Warm (75-89)</option>
+          <option value="mild">Mild (56-74)</option>
+          <option value="crisp">Crisp (Below 55)</option>
+          <option value="cold">Cold (Below 32)</option>
+        </select>
       </div>
       <div class="form-group">
         <label>Bio:</label>
@@ -513,7 +519,7 @@
 <template id="trip-vibes-new-page">
   <div class="vue-component">
     <div class="container">
-      <h1>New Trip Vibes</h1>
+      <h5>New Trip Vibes</h5>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
@@ -523,7 +529,44 @@
       </div>
       <div class="form-group">
         <label>Vibe ID:</label>
-        <input type="integer" class="form-control" v-model="vibe_id">
+        <select v-model="vibe_id">
+          <option value="1">Off The Beaten Path</option>
+          <option value="2">Romantic</option>
+          <option value="3">Peace & Quiet</option>
+          <option value="4">Great Local Culture</option>
+          <option value="5">Family Friendly</option>
+          <option value="6">Weekend Getaway</option>
+          <option value="7">International Trip</option>
+          <option value="8">Business Trip</option>
+          <option value="9">Lots To Do</option>
+        </select> 
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+  </div>
+</template>
+
+<template id="trip-activities-new-page">
+  <div class="vue-component">
+    <div class="container">
+      <h5>New Trip Activities</h5>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Trip ID:</label> 
+        <input type="integer" class="form-control" v-model="trip_id">
+      </div>
+      <div class="form-group">
+        <label>Activity ID:</label>
+        <select v-model="activity_id">
+          <option value="1">Landmarks / Sights / Tourist Attractions</option>
+          <option value="2">Art</option>
+          <option value="3">Trainquil / Downtime</option>
+          <option value="4">Great Night Life</option>
+          <option value="5">Water Activities</option>
+          <option value="6">Outdoor Activities</option>
+        </select>
       </div>
       <button class="btn btn-primary" v-on:click="submit()">Submit</button>
     </div>

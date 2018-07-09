@@ -145,6 +145,35 @@ var TripVibesNewPage = {
       axios
         .post("/api/trip_vibes", params)
         .then(function(response) {
+          router.push("/trip_activities/new");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this));
+    }
+  },
+  computed: {}
+};
+
+var TripActivitiesNewPage = {
+  template: "#trip-activities-new-page",
+  data: function() {
+    return {
+      trip_id: "",
+      activity_id: ""
+    };
+  },
+  created: function() {},
+  methods: {
+    submit: function() {
+      var params = {
+        trip_id: this.trip_id,
+        activity_id: this.activity_id
+      };
+      axios
+        .post("/api/trip_activities", params)
+        .then(function(response) {
           router.push("/#/");
         })
         .catch(
@@ -253,7 +282,8 @@ var router = new VueRouter({
     { path: "/trips", component: TripsIndexPage},
     { path: "/trips/new", component: TripsNewPage},
     { path: "/trips/:id", component: TripsShowPage},
-    { path: "/trip_vibes/new", component: TripVibesNewPage}
+    { path: "/trip_vibes/new", component: TripVibesNewPage},
+    { path: "/trip_activities/new", component: TripActivitiesNewPage}
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
