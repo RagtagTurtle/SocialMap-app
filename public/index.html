@@ -53,20 +53,65 @@
         // CREATING NEW MAP
         var map = new google.maps.Map(document.getElementById('map'), options);
 
-        // ADD MARKERS
-        var marker = new google.maps.Marker({
-          position:{lat:42.4668, lng: -70.9495},
-          map:map,
-          icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
-        });
+        var markers = [
+        {
+                  coords:{lat:42.4668, lng: -70.9495},
+                  iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+                  content: '<h1>Lynn, Mass</h1>'
+                },
+                {
+                          coords:{lat:42.8584, lng: -70.9300},
+                          content: '<h1>Amesbury</h1>'
+                        },
+                {
+                  coords:{lat:42.7762, lng: -71.0773}
+                }];
 
-        var infoWindow = new google.maps.InfoWindow({
-          content: '<h4>Lynn MA</h4>'
-        });
+        // LOOP THROUGH MARKERS
+        for (var i = 0;i < markers.length; i++) {
+          addMarker(markers[i]);
+        }
 
-        marker.addListener('click', function(){
-          infoWindow.open(map, marker);
-        });
+        // ADD MARKER FUNCTION (DYNAMIC MARKERS)
+        function addMarker(props){
+          var marker = new google.maps.Marker({
+            position:props.coords,
+            map:map,
+            // icon:props.iconImage
+          });
+
+          // CHECK FOR CUSTOM ICON
+          if (props.iconImage) {
+          // SET ICON IMAGE
+            marker.setIcon(props.iconImage);
+          }
+
+          // CHECK CONTENT
+          if (props.content) {
+            var infoWindow = new google.maps.InfoWindow({
+              content: props.content
+            });
+
+            marker.addListener('click', function(){
+              infoWindow.open(map, marker);
+            });  
+          }
+        }
+
+        // // ADD MARKERS
+        // var marker = new google.maps.Marker({
+        //   position:{lat:42.4668, lng: -70.9495},
+        //   map:map,
+        //   icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+        // });
+
+        // var infoWindow = new google.maps.InfoWindow({
+        //   content: '<h4>Lynn MA</h4>'
+        // });
+
+        // marker.addListener('click', function(){
+        //   infoWindow.open(map, marker);
+        // });
       }
     </script>
 
