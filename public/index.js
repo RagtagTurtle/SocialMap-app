@@ -101,6 +101,7 @@ var TripsShowPage = {
   computed: {}
 };
 
+
 var TripsNewPage = {
   template: "#trips-new-page",
   data: function() {
@@ -195,7 +196,7 @@ var TripActivitiesNewPage = {
   computed: {}
 };
 
-// placeholder
+// PLACEHOLDER
 // var HomePage = {
 //   template: "#home-page",
 //   data: function() {
