@@ -4,7 +4,17 @@ var TripsIndexPage = {
   template: "#trips-index-page",
   data: function() {
     return {
-      trips: [],
+      trips: [
+              {
+                first_city_trip: [{
+                              city_id: "",
+                              city: {
+                                      name: ""
+                                      }
+                            }]
+              }
+              ],
+      city_trips: [],
       recommendations: []
     };
   },

@@ -7,6 +7,9 @@ json.climate trip.climate
 json.start_date trip.friendly_start_date
 json.end_date trip.friendly_end_date
 
+json.name trip.name
+json.state_name trip.state_name
+
 json.city_trips do
   json.array! trip.city_trips, partial: "api/city_trips/city_trip", as: :city_trip
 end

@@ -38,6 +38,10 @@
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.js"></script>
     <script src="index.js" defer></script>
+
+    <!-- GOOGLE MAPS DYNAMIC MAP -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWx-mtlrwUD7Kbfvc3ofHpPSVoWfU6Wq4" async defer></script>
+
   </head>
 
   <body>
@@ -157,7 +161,6 @@
           <div class="color cadet btn btn-default btn-block" data-color="cadet"></div>
         </div>
       </div>
-
     </div>
 
     <!-- Vendor Scripts -->
@@ -170,12 +173,10 @@
 
     <!-- Theme Scripts -->
     <script src="js/main.js"></script>
-
-
   </body>
 </html>
 
-<!-- USING 'FULL WIDTH' HOMEPAGE -->
+<!-- FUNCTIONAL INDEX WITH ALL THE SAME CARDS --> Using Full 
 <template id="trips-index-page">
   <div class="vue-component">
     <div v-for="trip in trips">
@@ -188,8 +189,36 @@
                   <img src="img/photos/DeathtoStock_EnergyandSerenity2.jpg" class="img-fluid" />
                 </div>
                 <div class="col-md-6 caption">
+                  <p>{{ trip.user_first_name }} {{ trip.user_last_name }}<p>
+                  <p>ID:{{ trip.id }} </p>
+                  <a v-bind:href="'/#/trips/' + trip.id" class="post-title">{{ trip.name }}</a>
+                  <span class="post-date">{{ trip.start_date }} to {{ trip.end_date }}</span>
+                  <p class="post-description">Trip Bio to go here</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+  </div>
+  </div>
+</template>
+
+<!-- USING 'FULL WIDTH' INDEX -->
+<!-- <template id="trips-index-page">
+  <div class="vue-component">
+    <div v-for="trip in trips">
+      <div id="posts" class="container">
+        <div class="row">
+          <section class="col-md-12 wow fadeIn">
+            <div class="post big">
+              <div class="row">
+                <div class="col-md-6 media">
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity2.jpg" class="img-fluid" />
+                </div>
+                <div class="col-md-6 caption">
                   <span class="post-tag">{{ trip.id }}</span>
-                  <a href="post-image.html" class="post-title">Don't look at me</a>
+                  <a v-bind:href="'/#/trips/' + trip.id" class="post-title">Don't look at me</a>
                   <span class="post-date">19 Sept 2015</span>
                   <p class="post-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis <a href="#">parturient montes</a>, nascetur ridiculus mus. Aenean commodo ligula eget dolor.</p>
                 </div>
@@ -202,7 +231,7 @@
               <div class="row">
                 <div class="col-md-6 caption">
                   <span class="post-tag">{{trip.id}}</span>
-                  <a href="post-image.html" class="post-title">I'm only breathing</a>
+                  <a v-bind:href="'/#/trips/' + trip.id" class="post-title">I'm only breathing</a>
                   <span class="post-date">5 Sept 2015</span>
                   <p class="post-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis <a href="#">parturient montes</a>, nascetur ridiculus mus. Aenean commodo ligula eget dolor.</p>
                 </div>
@@ -221,7 +250,7 @@
                 </div>
                 <div class="col-md-6 caption">
                   <span class="post-tag">#travel</span>
-                  <a href="post-image.html" class="post-title">Leave it alone</a>
+                  <a v-bind:href="'/#/trips/' + trip.id" class="post-title">Leave it alone</a>
                   <span class="post-date">20 Aug 2015</span>
                   <p class="post-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis <a href="#">parturient montes</a>, nascetur ridiculus mus. Aenean commodo ligula eget dolor.</p>
                 </div>
@@ -232,7 +261,7 @@
       </div>
   </div>
   </div>
-</template>
+</template> -->
 
 
 <!-- USING 'MASONRY' HOMEPAGE -->
@@ -420,20 +449,39 @@
 
           <div class="caption">
             <div class="header">
-              <span class="post-tag">#music</span>
-              <h1>{{ trip.city_trips[0].city.name }}</h1>
+                <p>{{trip.user_first_name }}'s Trip To:</p>
+              <h1>{{ trip.name }}, {{ trip.state_name }} </h1>
             </div>
+
+            <iframe width="100%" height="600px" frameborder="0" style="border:0"
+             src='https://www.google.com/maps/embed/v1/search?key=AIzaSyAWx-mtlrwUD7Kbfvc3ofHpPSVoWfU6Wq4&q=Chicago'
+             allowfullscreen>
+            </iframe>
+
+            <iframe width="100%" height="600px" frameborder="0" style="border:0"
+             v-bind:src="'https://www.google.com/maps/embed/v1/place?key=AIzaSyAWx-mtlrwUD7Kbfvc3ofHpPSVoWfU6Wq4&q=' + trip.city_trips[0].city.name"
+             allowfullscreen>
+            </iframe>
+
+
+<!--             <div style='width: 800px;'>  
+              <div id="map" style='width: 800px; height: 400px;'></div>  
+            </div>  
+
+            <div id="map">
+              
+            </div> -->
             
             <iframe src="https://snazzymaps.com/embed/83294" width="100%" height="600px" style="border:none;"></iframe>
 
             <h5>The Vibe(s):</h5>
             <ul>
-              <li v-for="vibe in trip.trip_vibes">{{ vibe.vibe.name }}</li>
+              <li v-for="trip_vibe in trip.trip_vibes">{{ trip_vibe.vibe.name }}</li>
             </ul>
 
             <h5>Activities!</h5>
             <ul>
-              <li v-for="activity in trip.trip_activities">{{ activity.activity.name }}</li>
+              <li v-for="trip_activity in trip.trip_activities">{{ trip_activity.activity.name }}</li>
             </ul>
 
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque <a href="#">penatibus</a> et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, <strong>pretium quis, sem.</strong></p>
@@ -448,23 +496,22 @@
 
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, <a href="#">nascetur ridiculus</a> mus. Donec quam felis, ultricies nec, pellentesque eu, <strong>pretium quis, sem.</strong></p>
 
-            <h5>Recommendations</h5>
-            <div class="row">
-              <div class="col-md-4">
-                <ul>
-                  <li v-for="recommendation in trip.recommendations">{{recommendation.name}}</li>
-                </ul>
-              </div>
-              <div class="col-md-4">
-                <ul>
-                  <li v-for="vibe in trip.trip_vibes">{{ vibe.vibe.name }}</li>
-                </ul>
-              </div>
-              <div class="col-md-4">
-                <ul>
-                  <li v-for="activity in trip.trip_activities">{{ activity.activity.name }}</li>
-                </ul>
-              </div>
+            <h2>Recommendations:</h2>
+            <div class="block">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                  </tr>
+                </thead>
+                <tbody v-for="recommendation in trip.recommendations">
+                  <tr>
+                    <td>{{ recommendation.name }}</td>
+                    <td>{{ recommendation.category }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             <p>Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. <strong>Etiam rhoncus</strong>. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante <a href="#">tincidunt tempus</a>.</p>

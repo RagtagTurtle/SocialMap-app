@@ -26,6 +26,18 @@ class Trip < ApplicationRecord
     climate.capitalize
   end
 
+  def first_city_trip
+    city_trips.order(:created_at).first || CityTrip.new
+  end
+
+  def name
+    city_trips.order(:created_at).first.city.name if city_trips.any?
+  end
+
+  def state_name
+    city_trips.order(:created_at).first.city.state if city_trips.any?
+  end
+
   def self.search(options)
     city_score = 0
 
