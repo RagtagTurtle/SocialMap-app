@@ -42,8 +42,8 @@
     <!-- GOOGLE MAPS DYNAMIC MAP -->
 
 
-    <!-- INIT FUNCTION WHICH IS TRIGGERED FROM API URL -->
-    <script>
+    <!-- INIT-MAP FUNCTION WHICH IS TRIGGERED FROM API URL -->
+<!--     <script>
       function initMap() {
           // MAP OPTIONS
           var options = {
@@ -98,33 +98,26 @@
           }
         }
 
-        // // ADD MARKERS
-        // var marker = new google.maps.Marker({
-        //   position:{lat:42.4668, lng: -70.9495},
-        //   map:map,
-        //   icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
-        // });
+        // ADD MARKERS
+        var marker = new google.maps.Marker({
+          position:{lat:42.4668, lng: -70.9495},
+          map:map,
+          icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+        });
 
-        // var infoWindow = new google.maps.InfoWindow({
-        //   content: '<h4>Lynn MA</h4>'
-        // });
+        var infoWindow = new google.maps.InfoWindow({
+          content: '<h4>Lynn MA</h4>'
+        });
 
-        // marker.addListener('click', function(){
-        //   infoWindow.open(map, marker);
-        // });
+        marker.addListener('click', function(){
+          infoWindow.open(map, marker);
+        });
       }
-    </script>
+    </script> -->
 
     <!-- GOOGLE MAPS API LINK -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWx-mtlrwUD7Kbfvc3ofHpPSVoWfU6Wq4&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWx-mtlrwUD7Kbfvc3ofHpPSVoWfU6Wq4"></script>
 
-    <style>
-      #map {
-        width: 100%;
-        height: 400px;
-        background-color: grey;
-      }
-    </style>
 
   </head>
 
