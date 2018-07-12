@@ -49,6 +49,8 @@ var TripsShowPage = {
               name: "",
               state: "",
               region: "",
+              longitude: "",
+              latitude: ""
             }
           }
         ],
@@ -95,6 +97,7 @@ var TripsShowPage = {
       .get("/api/trips/" + this.$route.params.id )
       .then(function(response) { 
         this.trip = response.data;
+        this.initMap();
       }.bind(this));
   },
   methods: {
@@ -102,7 +105,8 @@ var TripsShowPage = {
         // MAP OPTIONS
         var options = {
         zoom: 8,
-        center: {lat: 42.3601, lng: -71.0589}
+        center: {lat: parseFloat(this.trip.latitude), lng: parseFloat(this.trip.longitude)},
+        gestureHandling: 'greedy'
       };
       // CREATING NEW MAP
       var map = new google.maps.Map(document.getElementById('map'), options);
@@ -115,7 +119,6 @@ var TripsShowPage = {
   },
   computed: {},
   mounted: function() {
-    this.initMap();
   }
 };
 
@@ -153,6 +156,71 @@ var TripsNewPage = {
     }
   },
   computed: {}
+};
+
+var CitiesIndexPage = {
+  template: "#cities-index-page",
+  data: function() {
+    return {
+      cities: []
+    };
+  },
+  created: function() {
+    axios
+      .get("/api/cities")
+      .then(function(response) {
+        this.cities = response.data;
+      }.bind(this));
+  },
+  methods: {},
+  computed: {}
+};
+
+var CitiesShowPage = {
+  template: "#cities-show-page",
+  data: function() {
+    return {
+      city: {
+        id: "",
+        name: "",
+        state: "",
+        geography: {
+          id: "",
+          name: ""
+        },
+        region: "",
+        longitude: "",
+        latitude: ""
+      }
+    };
+  },
+  created: function() {
+    axios
+      .get("/api/cities/" + this.$route.params.id )
+      .then(function(response) { 
+        this.city = response.data;
+      }.bind(this));
+  },
+  methods: {
+    initMap: function() {
+        // MAP OPTIONS
+        var options = {
+        zoom: 8,
+        center: {lat: 42.3601, lng: -71.0589}
+      };
+      // CREATING NEW MAP
+      var map = new google.maps.Map(document.getElementById('map'), options);
+
+      var marker = new google.maps.Marker({
+        position:{lat:42.4668, lng:-70.9495},
+        map:map
+      });
+    },
+  },
+  computed: {},
+  mounted: function() {
+    this.initMap();
+  }
 };
 
 var TripVibesNewPage = {
@@ -201,6 +269,39 @@ var TripActivitiesNewPage = {
       };
       axios
         .post("/api/trip_activities", params)
+        .then(function(response) {
+          router.push("/#/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this));
+    }
+  },
+  computed: {}
+};
+
+var RecommendationsNewPage = {
+  template: "#recommendations-new-page",
+  data: function() {
+    return {
+      category: "",
+      name: "",
+      trip_id: "",
+      city_id: ""
+    };
+  },
+  created: function() {},
+  methods: {
+    submit: function() {
+      var params = {
+        category: this.category,
+        name: this.name,
+        trip_id: this.trip_id,
+        city_id: this.city_id
+      };
+      axios
+        .post("/api/recommendations", params)
         .then(function(response) {
           router.push("/#/");
         })
@@ -310,7 +411,10 @@ var router = new VueRouter({
     { path: "/trips", component: TripsIndexPage},
     { path: "/trips/new", component: TripsNewPage},
     { path: "/trips/:id", component: TripsShowPage},
+    { path: "/cities", component: CitiesIndexPage},
+    { path: "/cities/:id", component: CitiesShowPage},
     { path: "/trip_vibes/new", component: TripVibesNewPage},
+    { path: "/recommendations/new", component: RecommendationsNewPage},
     { path: "/trip_activities/new", component: TripActivitiesNewPage}
   ],
   scrollBehavior: function(to, from, savedPosition) {

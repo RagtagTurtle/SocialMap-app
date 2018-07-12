@@ -117,8 +117,6 @@
 
     <!-- GOOGLE MAPS API LINK -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWx-mtlrwUD7Kbfvc3ofHpPSVoWfU6Wq4"></script>
-
-
   </head>
 
   <body>
@@ -270,7 +268,11 @@
                   <p>ID:{{ trip.id }} </p>
                   <a v-bind:href="'/#/trips/' + trip.id" class="post-title">{{ trip.name }}</a>
                   <span class="post-date">{{ trip.start_date }} to {{ trip.end_date }}</span>
-                  <p class="post-description">Trip Bio to go here</p>
+                  <br>
+                  <h4>Recommendations Include:</h4>
+                  <div v-for="recommendation in trip.recommendations">
+                    <p>{{ recommendation.category }}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -535,12 +537,7 @@
               
             </div>
             
-            <iframe width="100%" height="600px" frameborder="0" style="border:0"
-             v-bind:src="'https://www.google.com/maps/embed/v1/place?key=AIzaSyAWx-mtlrwUD7Kbfvc3ofHpPSVoWfU6Wq4&q=' + trip.city_trips[0].city.name"
-             allowfullscreen>
-            </iframe>
-            
-            <iframe src="https://snazzymaps.com/embed/83294" width="100%" height="600px" style="border:none;"></iframe>
+            <br>
 
             <h5>The Vibe(s):</h5>
             <ul>
@@ -631,6 +628,80 @@
   </div>
 </template>
 
+<!-- CITIES INDEX PAGE -->
+<template id="cities-index-page">
+  <div class="vue-component">
+    <div v-for="city in cities">
+      <div id="posts" class="container">
+        <div class="row">
+          <section class="col-md-12 wow fadeIn">
+            <div class="post big">
+              <div class="row">
+                <div class="col-md-6 media">
+                  <img src="img/photos/DeathtoStock_EnergyandSerenity2.jpg" class="img-fluid" />
+                </div>
+                <div class="col-md-6 caption">
+                  <p>{{ city.id }} <p>
+                  <a v-bind:href="'/#/cities/' + city.id" class="post-title">{{ city.name }}, {{ city.state }}</a>
+                  <span class="post-date">Testing 1 2 3</span>
+                  <p class="post-description">City Bio to go here</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+  </div>
+  </div>
+</template>
+
+<template id="cities-show-page">
+  <div class="vue-component">
+    <div id="single">
+
+      <div class="container">
+        <div class="post">
+          <img src="img/photos/DeathtoStockSerenity8.jpg" class="img-fluid" />
+
+          <div class="caption">
+            <div class="header">
+              <span class="post-tag">#music</span>
+              <h1>{{ city.name }}</h1>
+            </div>
+
+            <h2>Recommendations:</h2>
+            <div class="block">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>User</th>
+                  </tr>
+                </thead>
+                <tbody v-for="recommendation in city.recommendations">
+                  <tr>
+                    <td>{{ recommendation.name }}</td>
+                    <td>{{ recommendation.category }}</td>
+                    <td>{{ recommendation.user.first_name }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h5>Activities!</h5>
+            <ul>
+              <li v-for="trip_activity in city.trip_activities">{{ trip_activity.activity.name }}</li>
+            </ul>
+
+            <p>Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. <strong>Etiam rhoncus</strong>. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante <a href="#">tincidunt tempus</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <template id="trip-vibes-new-page">
   <div class="vue-component">
     <div class="container">
@@ -681,6 +752,34 @@
           <option value="4">Great Night Life</option>
           <option value="5">Water Activities</option>
           <option value="6">Outdoor Activities</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+  </div>
+</template>
+
+<template id="recommendations-new-page">
+  <div class="vue-component">
+    <div class="container">
+      <h5>New Recommendations</h5>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Trip ID:</label> 
+        <input type="integer" class="form-control" v-model="trip_id">
+      </div>
+      <div class="form-group">
+        <label>Category:</label>
+        <select v-model="category">
+          <option value="0">Restaurants</option>
+          <option value="1">Tourist Attractions</option>
+          <option value="2">Museums / Other Educational</option>
+          <option value="3">Shopping</option>
+          <option value="4">Night Life</option>
+          <option value="5">Outdoor Activity</option>
+          <option value="6">Lodging</option>
         </select>
       </div>
       <button class="btn btn-primary" v-on:click="submit()">Submit</button>

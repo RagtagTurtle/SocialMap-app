@@ -38,6 +38,14 @@ class Trip < ApplicationRecord
     city_trips.order(:created_at).first.city.state if city_trips.any?
   end
 
+  def latitude
+    city_trips.order(:created_at).first.city.latitude
+  end
+
+  def longitude
+    city_trips.order(:created_at).first.city.longitude
+  end
+
   def self.search(options)
     city_score = 0
 
