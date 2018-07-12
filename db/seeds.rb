@@ -96,7 +96,16 @@
 # Recommendation.create(category: 4, name: "Legal Harborside", trip_id: 11, city_id: 8)
 # Recommendation.create(category: 4, name: "Stage American Vauderville Nightclub", trip_id: 11, city_id: 8)
 
+# Recommendation.all.each do |recommendation|
+#   location = Geocoder.search(recommendation.name)[0].geometry["location"]
+#   results_lat = location["lat"]
+#   results_lng = location["lng"]
+#   recommendation.update(latitude: results_lat, longitude: results_lng)
+#   sleep 1
+#   # index += 1
+# end
 
+# results = Geocoder.search(recommendation.name)[0].geometry["location"]["lat"]
 
 
 

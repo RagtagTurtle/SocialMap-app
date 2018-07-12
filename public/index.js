@@ -111,9 +111,17 @@ var TripsShowPage = {
       // CREATING NEW MAP
       var map = new google.maps.Map(document.getElementById('map'), options);
 
+      // CREATING NEW MARKER
       var marker = new google.maps.Marker({
-        position:{lat:42.4668, lng:-70.9495},
+        position:{lat:parseFloat(this.trip.recommendations[0].latitude), lng:parseFloat(this.trip.recommendations[0].longitude)},
         map:map
+      });
+      var infoWindow = new google.maps.InfoWindow({
+        content: this.trip.recommendations[0].name
+      })
+
+      marker.addListener('click', function(){
+        infoWindow.open(map,marker);
       });
     },
   },
