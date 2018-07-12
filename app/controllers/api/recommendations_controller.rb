@@ -11,12 +11,14 @@ class Api::RecommendationsController < ApplicationController
   end
 
   def create
-    @recommendation = Recommendation.create(
+    @recommendation = Recommendation.new(
                                             category: params[:category],
                                             name: params[:name],
                                             trip_id: params[:trip_id],
                                             city_id: params[:city_id]
                                             )
+    @recommendation.save
+    render 'show.json.jbuilder'
   end
 
   def update

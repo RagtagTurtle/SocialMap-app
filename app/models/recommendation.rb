@@ -6,6 +6,6 @@ class Recommendation < ApplicationRecord
   enum category: {restaurants: 0, tourist_attractions: 1, museums_or_other_educational: 2, shopping: 3, night_life: 4, outdoor_activity: 5, lodging: 6}
 
   def category_pretty
-    category.gsub("_", " ")
+    category.gsub("_", " ").titleize
   end
 end

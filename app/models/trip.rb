@@ -34,16 +34,20 @@ class Trip < ApplicationRecord
     city_trips.order(:created_at).first.city.name if city_trips.any?
   end
 
+  def city_integer
+    city_trips.order(:created_at).first.city.id if city_trips.any?
+  end
+
   def state_name
     city_trips.order(:created_at).first.city.state if city_trips.any?
   end
 
   def latitude
-    city_trips.order(:created_at).first.city.latitude
+    city_trips.order(:created_at).first.city.latitude if city_trips.any?
   end
 
   def longitude
-    city_trips.order(:created_at).first.city.longitude
+    city_trips.order(:created_at).first.city.longitude if city_trips.any?
   end
 
   def self.search(options)
