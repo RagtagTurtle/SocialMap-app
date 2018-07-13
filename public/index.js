@@ -89,6 +89,9 @@ var TripsShowPage = {
             ]
           }
         ]
+      },
+      currentRecommendation: {
+        name: ""
       }
     };
   },
@@ -103,11 +106,15 @@ var TripsShowPage = {
   },
   methods: {
       addMarker: function(markerInput, mapInput) {
-        console.log(mapInput);
         var marker = new google.maps.Marker({
             position:{lat:parseFloat(markerInput.latitude), lng:parseFloat(markerInput.longitude)},
-            map: mapInput
+            map: mapInput,
+            icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            // html: "<span v-on:click='setCurrentMarker(markerInput)' data-toggle='modal' data-target='#exampleModal'>"
           });
+        marker.addListener('click', function() {
+          this.setCurrentMarker(markerInput);
+        }.bind(this));
         },
 
     initMap: function() {
@@ -128,7 +135,6 @@ var TripsShowPage = {
         this.addMarker(markers[i], map);
       }
 
-
       // CREATING NEW MARKER
       // var marker = new google.maps.Marker({
       //   position:{lat:parseFloat(this.trip.recommendations[0].latitude), lng:parseFloat(this.trip.recommendations[0].longitude)},
@@ -140,9 +146,13 @@ var TripsShowPage = {
       // });
 
       // marker.addListener('click', function() {
-      //   infoWindow.open(map,marker);
+      //   setCurrentMarker;
       // });
     },
+    setCurrentMarker: function(inputRecommendation){
+      this.currentRecommendation = inputRecommendation;
+      $('#exampleModal').modal({show: true});
+    }
   },
   computed: {},
   mounted: function() {

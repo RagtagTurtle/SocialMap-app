@@ -1,0 +1,47 @@
+    <script>
+      // CALL GEOCODE
+      geocode();
+      function geocode(){
+        var location = '22 Main St Boston MA';
+        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+          params: {
+            address: location,
+            key: 'AIzaSyAWx-mtlrwUD7Kbfvc3ofHpPSVoWfU6Wq4'
+          }
+        })
+        .then(function(response) {
+          // LOG FULL RESPONSE
+          console.log(response);
+
+          // FORMAT ADDRESS
+          var formattedAddress = response.data.results[0].formatted_address;
+          var formattedAddressOutput = `
+            <ul class="list-group">
+              <li class="list-group-item">${formattedAddress}</li>
+            </ul>
+          `;
+
+          // ADDRESS COMPONENETS
+          var addressComponents = response.data.results[0].address_components;
+          var addressComponenetsOutput = '<ul class="list-group">';
+          for(var i = 0; i < addressComponents.length; i++){
+            addressComponentsOutput +=`
+              <li class="list-group-item"><strong>${addressComponents[i].types[0]}</strong>: ${addressComponents[i].long_name}</li>
+            `;
+          }
+          addressComponentsOutput += '</ul>';
+
+          // OUTPUT TO APP
+          document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
+          document.getElementById('address-components').innerHTML = addressComponentsOutput;
+        })
+        .catch(function(error){
+          console.log(error);
+        });
+      }
+    </script>
+
+
+
+          <div id="formatted-address"></div>
+      <div id="address-components"></div>
