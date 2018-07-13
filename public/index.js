@@ -98,9 +98,18 @@ var TripsShowPage = {
       .then(function(response) { 
         this.trip = response.data;
         this.initMap();
+        // this.addMarker();
       }.bind(this));
   },
   methods: {
+      addMarker: function(markerInput, mapInput) {
+        console.log(mapInput);
+        var marker = new google.maps.Marker({
+            position:{lat:parseFloat(markerInput.latitude), lng:parseFloat(markerInput.longitude)},
+            map: mapInput
+          });
+        },
+
     initMap: function() {
         // MAP OPTIONS
         var options = {
@@ -111,18 +120,28 @@ var TripsShowPage = {
       // CREATING NEW MAP
       var map = new google.maps.Map(document.getElementById('map'), options);
 
-      // CREATING NEW MARKER
-      var marker = new google.maps.Marker({
-        position:{lat:parseFloat(this.trip.recommendations[0].latitude), lng:parseFloat(this.trip.recommendations[0].longitude)},
-        map:map
-      });
-      var infoWindow = new google.maps.InfoWindow({
-        content: this.trip.recommendations[0].name
-      })
+      // THIS SHOULD CREATE AN ARRAY OF RECOMMENDATIONS
+      var markers = this.trip.recommendations;
 
-      marker.addListener('click', function(){
-        infoWindow.open(map,marker);
-      });
+      // // LOOP THROUGH MARKERS
+      for (var i = 0; i < markers.length; i++) {
+        this.addMarker(markers[i], map);
+      }
+
+
+      // CREATING NEW MARKER
+      // var marker = new google.maps.Marker({
+      //   position:{lat:parseFloat(this.trip.recommendations[0].latitude), lng:parseFloat(this.trip.recommendations[0].longitude)},
+      //   map:map
+      // });
+
+      // var infoWindow = new google.maps.InfoWindow({
+      //   content: this.trip.recommendations[0].name
+      // });
+
+      // marker.addListener('click', function() {
+      //   infoWindow.open(map,marker);
+      // });
     },
   },
   computed: {},
