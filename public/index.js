@@ -120,7 +120,7 @@ var TripsShowPage = {
     initMap: function() {
         // MAP OPTIONS
         var options = {
-        zoom: 8,
+        zoom: 12,
         center: {lat: parseFloat(this.trip.latitude), lng: parseFloat(this.trip.longitude)},
         gestureHandling: 'greedy'
       };
