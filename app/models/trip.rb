@@ -57,6 +57,16 @@ class Trip < ApplicationRecord
     city_trips.order(:created_at).first.city.longitude if city_trips.any?
   end
 
+  def last_created_trip
+    if @current_user
+      trips = Trip.where(user_id: current_user)
+      trips.order(:created_at).last.id
+    else
+      trips = Trip.all
+      trips.order(:created_at).last.id
+    end
+  end
+
   def self.search(options)
     city_score = 0
 

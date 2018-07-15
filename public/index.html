@@ -179,7 +179,7 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="https://wrapbootstrap.com/theme/ada-personal-blog-template-WB0T99698" target="_blank">Buy it now</a>
+                <a class="nav-link" href="/#/map">Map</a>
               </li>
             </ul>
           </div>
@@ -534,11 +534,7 @@
             </div>
 
             <h5>My Google Map:</h5>
-            <div id="map">
-              
-            </div>
-
-            
+            <div id="map"></div>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -551,7 +547,8 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    {{ currentRecommendation.category }}
+                    Category: {{ currentRecommendation.category }} <br>
+                    <a v-bind:href=currentRecommendation.main_url onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">See More on Recommendation</a>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -619,6 +616,10 @@
 <template id="trips-new-page">
   <div class="vue-component">
     <div class="container">
+      <div id="myProgress">
+        <div id="myBar_trips">10%</div>
+      </div>
+
       <h1>New Trip</h1>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
@@ -687,7 +688,7 @@
 
       <div class="container">
         <div class="post">
-<!--           <img src="img/photos/DeathtoStockSerenity8.jpg" class="img-fluid" /> -->
+          <!-- <img src="img/photos/DeathtoStockSerenity8.jpg" class="img-fluid" /> -->
 
           <h1>My Google Map:</h1>
           <div id="map">
@@ -705,11 +706,10 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                 Category: {{currentRecommendation.category}}
+                 Category: {{currentRecommendation.category}} <br>
+                  <a v-bind:href=currentRecommendation.main_url onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">See More on Recommendation</a>
                 </div>
                 <div>
-                  <a href="http://www.google.com" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">This link will open in new window/tab</a>
-
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -758,16 +758,44 @@
   </div>
 </template>
 
-<template id="trip-vibes-new-page">
+<template id="city-trips-new-page">
   <div class="vue-component">
     <div class="container">
-      <h5>New Trip Vibes</h5>
+      <div id="myProgress">
+        <p>New Trip Progress:</p>
+        <div id="myBar_city_trips">20%</div>
+      </div>
+      <h5>New City</h5>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
       <div class="form-group">
         <label>Trip ID:</label> 
         <input type="integer" class="form-control" v-model="trip_id">
+      </div>
+      <div class="form-group">
+        <label>City ID:</label>
+        <input type="text" class="form-control" v-model="city_id">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+  </div>
+</template>
+
+<template id="trip-vibes-new-page">
+  <div class="vue-component">
+    <div class="container">
+      <div id="myProgress">
+        <p>New Trip Progress:</p>
+        <div id="myBar_trip_vibes">40%</div>
+      </div>
+      <h5>New Trip Vibes</h5>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label></label> 
+        <input type="hidden" class="form-control" v-model="trip_id">
       </div>
       <div class="form-group">
         <label>Vibe ID:</label>
@@ -791,6 +819,10 @@
 <template id="trip-activities-new-page">
   <div class="vue-component">
     <div class="container">
+      <div id="myProgress">
+        <p>New Trip Progress:</p>
+        <div id="myBar_trip_activities">60%</div>
+      </div>
       <h5>New Trip Activities</h5>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
@@ -818,6 +850,10 @@
 <template id="recommendations-new-page">
   <div class="vue-component">
     <div class="container">
+      <div id="myProgress">
+        <p>New Trip Progress:</p>
+        <div id="myBar_recommendations">80%</div>
+      </div>
       <h5>New Recommendations</h5>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
@@ -850,6 +886,17 @@
       </div>
       <button class="btn btn-primary" v-on:click="submit_and_redirect()">Add Another Recommendation</button>
       <button class="btn btn-primary" v-on:click="submit()">Finalize Trip</button>
+    </div>
+  </div>
+</template>
+
+<template id="map-home-page">
+  <div class="vue-component">
+    <div class="container">
+      <h1>My Google Map:</h1>
+      <div id="map">
+        
+      </div>
     </div>
   </div>
 </template>

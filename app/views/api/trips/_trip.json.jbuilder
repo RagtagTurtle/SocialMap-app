@@ -12,6 +12,7 @@ json.state_name trip.state_name
 json.latitude trip.latitude
 json.longitude trip.longitude
 json.city_id trip.city_integer
+json.last_created_trip trip.last_created_trip
 
 json.city_trips do
   json.array! trip.city_trips, partial: "api/city_trips/city_trip", as: :city_trip

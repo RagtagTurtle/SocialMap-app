@@ -184,7 +184,7 @@ var TripsNewPage = {
       axios
         .post("/api/trips", params)
         .then(function(response) {
-          router.push("/trip_vibes/new");
+          router.push("/city_trips/new");
         })
         .catch(
           function(error) {
@@ -239,7 +239,7 @@ var CitiesShowPage = {
       .get("/api/cities/" + this.$route.params.id )
       .then(function(response) { 
         this.city = response.data;
-    this.initMap();
+        this.initMap();
       }.bind(this));
   },
   methods: {
@@ -259,113 +259,6 @@ var CitiesShowPage = {
         // MAP OPTIONS
         var options = {
         zoom: 12,
-        styles: [
-    {
-        "featureType": "all",
-        "elementType": "all",
-        "stylers": [
-            {
-                "lightness": "42"
-            },
-            {
-                "visibility": "on"
-            },
-            {
-                "hue": "#ff0000"
-            },
-            {
-                "saturation": "-100"
-            },
-            {
-                "gamma": "0.78"
-            },
-            {
-                "weight": "0.37"
-            },
-            {
-                "invert_lightness": true
-            }
-        ]
-    },
-    {
-        "featureType": "administrative",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#444444"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#f2f2f2"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 45
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#3ec7c9"
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    }
-],
         center: {lat: parseFloat(this.city.latitude), lng: parseFloat(this.city.longitude)}
       };
       // CREATING NEW MAP
@@ -387,6 +280,35 @@ var CitiesShowPage = {
   computed: {},
   mounted: function() {
   }
+};
+
+var CityTripsNewPage = {
+  template: "#city-trips-new-page",
+  data: function() {
+    return {
+      trip_id: "",
+      city_id: ""
+    };
+  },
+  created: function() {},
+  methods: {
+    submit: function() {
+      var params = {
+        trip_id: this.trip_id,
+        city_id: this.city_id
+      };
+      axios
+        .post("/api/city_trips", params)
+        .then(function(response) {
+          router.push("/trip_vibes/new");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this));
+    }
+  },
+  computed: {}
 };
 
 var TripVibesNewPage = {
@@ -501,6 +423,25 @@ var RecommendationsNewPage = {
   computed: {}
 };
 
+var MapHomePage = {
+  template: "#map-home-page",
+  data: function() {
+    return {};
+  },
+  created: function() {},
+  methods: {
+    initMap: function() {
+        var options = {
+        zoom: 12,
+        center: {lat: parseFloat(this.city.latitude), lng: parseFloat(this.city.longitude)}
+      };
+      // CREATING NEW MAP
+      var map = new google.maps.Map(document.getElementById('map'), options);
+    }
+  },
+  computed: {}
+};
+
 // PLACEHOLDER
 // var HomePage = {
 //   template: "#home-page",
@@ -601,8 +542,10 @@ var router = new VueRouter({
     { path: "/cities", component: CitiesIndexPage},
     { path: "/cities/:id", component: CitiesShowPage},
     { path: "/trip_vibes/new", component: TripVibesNewPage},
+    { path: "/city_trips/new", component: CityTripsNewPage},
     { path: "/recommendations/new", component: RecommendationsNewPage},
-    { path: "/trip_activities/new", component: TripActivitiesNewPage}
+    { path: "/trip_activities/new", component: TripActivitiesNewPage},
+    { path: "/map", component: MapHomePage}
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

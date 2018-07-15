@@ -10,3 +10,48 @@ html, body{
   padding: 0;
 };
 }
+
+#myBar_trips {
+    width: 1%;
+    height: 30px;
+    background-color: #0000FF;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: 30px; /* To center it vertically */
+    color: white; 
+}
+
+#myBar_city_trips {
+    width: 20%;
+    height: 30px;
+    background-color: #0000FF;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: 30px; /* To center it vertically */
+    color: white; 
+}
+
+#myBar_trip_vibes {
+    width: 40%;
+    height: 30px;
+    background-color: #0000FF;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: 30px; /* To center it vertically */
+    color: white; 
+}
+
+#myBar_trip_activities {
+    width: 60%;
+    height: 30px;
+    background-color: #0000FF;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: 30px; /* To center it vertically */
+    color: white; 
+}
+
+#myBar_recommendations {
+    width: 80%;
+    height: 30px;
+    background-color: #0000FF;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: 30px; /* To center it vertically */
+    color: white; 
+}
