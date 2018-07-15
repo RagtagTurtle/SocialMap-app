@@ -109,7 +109,7 @@ var TripsShowPage = {
         var marker = new google.maps.Marker({
             position:{lat:parseFloat(markerInput.latitude), lng:parseFloat(markerInput.longitude)},
             map: mapInput,
-            icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            icon: markerInput.icon_image,
             // html: "<span v-on:click='setCurrentMarker(markerInput)' data-toggle='modal' data-target='#exampleModal'>"
           });
         marker.addListener('click', function() {
@@ -149,7 +149,7 @@ var TripsShowPage = {
       //   setCurrentMarker;
       // });
     },
-    setCurrentMarker: function(inputRecommendation){
+    setCurrentMarker: function(inputRecommendation) {
       this.currentRecommendation = inputRecommendation;
       $('#exampleModal').modal({show: true});
     }
@@ -228,6 +228,9 @@ var CitiesShowPage = {
         region: "",
         longitude: "",
         latitude: ""
+      },
+      currentRecommendation: {
+        name: ""
       }
     };
   },
@@ -240,20 +243,146 @@ var CitiesShowPage = {
       }.bind(this));
   },
   methods: {
+    addMarker: function(markerInput, mapInput) {
+      var marker = new google.maps.Marker({
+          position:{lat:parseFloat(markerInput.latitude), lng:parseFloat(markerInput.longitude)},
+          map: mapInput,
+          icon:markerInput.icon_image,
+          // html: "<span v-on:click='setCurrentMarker(markerInput)' data-toggle='modal' data-target='#exampleModal'>"
+        });
+      marker.addListener('click', function() {
+        this.setCurrentMarker(markerInput);
+      }.bind(this));
+      },
+
     initMap: function() {
         // MAP OPTIONS
         var options = {
-        zoom: 8,
+        zoom: 12,
+        styles: [
+    {
+        "featureType": "all",
+        "elementType": "all",
+        "stylers": [
+            {
+                "lightness": "42"
+            },
+            {
+                "visibility": "on"
+            },
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "saturation": "-100"
+            },
+            {
+                "gamma": "0.78"
+            },
+            {
+                "weight": "0.37"
+            },
+            {
+                "invert_lightness": true
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#444444"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#f2f2f2"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 45
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#3ec7c9"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    }
+],
         center: {lat: parseFloat(this.city.latitude), lng: parseFloat(this.city.longitude)}
       };
       // CREATING NEW MAP
       var map = new google.maps.Map(document.getElementById('map'), options);
 
-      var marker = new google.maps.Marker({
-        position:{lat:42.4668, lng:-70.9495},
-        map:map
-      });
+      // THIS SHOULD CREATE AN ARRAY OF RECOMMENDATIONS
+      var markers = this.city.recommendations;
+
+      // // LOOP THROUGH MARKERS
+      for (var i = 0; i < markers.length; i++) {
+        this.addMarker(markers[i], map);
+      }
     },
+    setCurrentMarker: function(inputRecommendation) {
+      this.currentRecommendation = inputRecommendation;
+      $('#exampleModal').modal({show: true});
+    }
   },
   computed: {},
   mounted: function() {
@@ -325,7 +454,9 @@ var RecommendationsNewPage = {
       category: "",
       name: "",
       trip_id: "",
-      city_id: ""
+      city_id: "",
+      latitude: "",
+      longitude: ""
     };
   },
   created: function() {},
@@ -335,7 +466,9 @@ var RecommendationsNewPage = {
         category: this.category,
         name: this.name,
         trip_id: this.trip_id,
-        city_id: this.city_id
+        city_id: this.city_id,
+        latitude: this.latitude,
+        longitude: this.longitude
       };
       axios
         .post("/api/recommendations", params)

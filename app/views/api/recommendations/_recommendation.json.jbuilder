@@ -7,3 +7,4 @@ json.trip recommendation.trip
 json.user recommendation.trip.user
 json.latitude recommendation.latitude
 json.longitude recommendation.longitude
+json.icon_image recommendation.icon_image

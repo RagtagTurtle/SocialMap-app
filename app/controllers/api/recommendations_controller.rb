@@ -17,7 +17,12 @@ class Api::RecommendationsController < ApplicationController
                                             trip_id: params[:trip_id],
                                             city_id: params[:city_id]
                                             )
+
     @recommendation.save
+
+    # @recommenation.update(latitude: Geocoder.search(@recommendation.name["location"]["lat"]))
+    # @recommenation.update(longitude: Geocoder.search(@recommendation.name["location"]["lng"]))
+    # @recommendation.save
     render 'show.json.jbuilder'
   end
 

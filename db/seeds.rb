@@ -107,12 +107,33 @@
 
 # results = Geocoder.search(recommendation.name)[0].geometry["location"]["lat"]
 
+# Recommendation.where(category: "restaurants").all.each do |recommendation|
+#   recommendation.update(icon_image: "http://maps.google.com/mapfiles/kml/pal2/icon32.png")
+# end
 
+# Recommendation.where(category: "outdoor_activity").all.each do |recommendation|
+#   recommendation.update(icon_image: "http://maps.google.com/mapfiles/kml/pal2/icon12.png")
+# end
 
+# Recommendation.where(category: "lodging").all.each do |recommendation|
+#   recommendation.update(icon_image: "http://maps.google.com/mapfiles/kml/pal2/icon20.png")
+# end
 
+# Recommendation.where(category: "tourist_attractions").all.each do |recommendation|
+#   recommendation.update(icon_image: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png")
+# end
 
+# Recommendation.where(category: "museums_or_other_educational").all.each do |recommendation|
+#   recommendation.update(icon_image: "http://maps.google.com/mapfiles/kml/pal3/icon27.png")
+# end
 
+# Recommendation.where(category: "shopping").all.each do |recommendation|
+#   recommendation.update(icon_image: "http://maps.google.com/mapfiles/ms/micons/shopping.png")
+# end
 
+# Recommendation.where(category: "night_life").all.each do |recommendation|
+#   recommendation.update(icon_image: "http://maps.google.com/mapfiles/kml/pal2/icon19.png")
+# end
 
 
 
