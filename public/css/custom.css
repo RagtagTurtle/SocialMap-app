@@ -11,6 +11,24 @@ html, body{
 };
 }
 
+#mainmap {
+  width: 100%;
+  height: 400px;
+  background-color: grey;
+  position: relative;
+
+html, body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+};
+}
+
+.citysearchbar {
+  width:50%;
+  text-align: right;
+}
+
 #myBar_trips {
     width: 1%;
     height: 30px;

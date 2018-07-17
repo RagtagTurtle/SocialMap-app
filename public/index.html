@@ -155,18 +155,13 @@
               <li class="dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Trips</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown2">
+                  <a class="dropdown-item" href="post-video.html">View My Trips</a>
                   <a class="dropdown-item" href="/#/trips/new">New Trip</a>
-                  <a class="dropdown-item" href="post-video.html">Post + Video</a>
                 </div>
               </li>
 
-              <li class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown3">
-                  <a class="dropdown-item" href="page-about.html">About</a>
-                  <a class="dropdown-item" href="page-contact.html">Contact</a>
-                  <a class="dropdown-item" href="page-404.html">404</a>
-                </div>
+              <li class="nav-item">
+                <a class="nav-link" href="/#/cities">Cities</a>
               </li>
 
               <li class="dropdown">
@@ -197,9 +192,9 @@
               </div>
               <div class="col-sm-8">
                 <ul class="list-inline">
-                  <li class="list-inline-item"><a href="home-masonry.html">Home</a></li>
-                  <li class="list-inline-item"><a href="page-about.html">About</a></li>
-                  <li class="list-inline-item"><a href="page-contact.html">Contact</a></li>
+                  <li class="list-inline-item"><a href="/#/">Home</a></li>
+                  <li class="list-inline-item"><a href="/#/cities">Cities</a></li>
+                  <li class="list-inline-item"><a href="/#/map">Map</a></li>
                 </ul>
               </div>
               <div class="col-md-2">
@@ -260,18 +255,19 @@
             <div class="post big">
               <div class="row">
                 <div class="col-md-6 media">
-                  <img src="img/photos/DeathtoStock_EnergyandSerenity2.jpg" class="img-fluid" />
+                  <img v-bind:src="trip['cover_image']" class="img-fluid" />
                 </div>
                 <div class="col-md-6 caption">
-                  <p>{{ trip.user_first_name }} {{ trip.user_last_name }}<p>
-                  <p>ID:{{ trip.id }} </p>
+                  <p>{{ trip.user_first_name }} {{ trip.user_last_name }}'s Jaunt to<p>
                   <a v-bind:href="'/#/trips/' + trip.id" class="post-title">{{ trip.name }}</a>
                   <span class="post-date">{{ trip.start_date }} to {{ trip.end_date }}</span>
                   <br>
                   <h4>Recommendations Include:</h4>
-                  <div v-for="recommendation in trip.recommendations">
-                    <p>{{ recommendation.category }}</p>
-                  </div>
+                  <ul>
+                  <li v-for="recommendation in trip.categories">
+                    <p>{{ recommendation }}</p>
+                  </li>
+                  </ul>
                   <a v-bind:href="'/#/trips/' + trip.id" class="btn btn-primary btn-sm">View Trip Details</a>
                   <a v-bind:href="'/#/cities/' + trip.city_id" class="btn btn-primary btn-sm">View City Details</a>
                 </div>
@@ -548,11 +544,11 @@
                   </div>
                   <div class="modal-body">
                     Category: {{ currentRecommendation.category }} <br>
-                    <a v-bind:href=currentRecommendation.main_url onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">See More on Recommendation</a>
+                    <a v-bind:href=currentRecommendation.main_url onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">See More on Recommendation</a> <br>
+                    <a v-bind:href="'/#/cities/' + currentRecommendation.city_id" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">View City</a>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                   </div>
                 </div>
               </div>
@@ -658,20 +654,22 @@
 <!-- CITIES INDEX PAGE -->
 <template id="cities-index-page">
   <div class="vue-component">
-    <div v-for="city in cities">
+  <div class="citysearchbar">
+      <input type="text" v-model="nameFilter" class="form-control" placeholder="Search Cities">
+  </div>
+    <div v-for="city in cities" v-if="isValidCity(city)">
       <div id="posts" class="container">
         <div class="row">
           <section class="col-md-12 wow fadeIn">
             <div class="post big">
               <div class="row">
                 <div class="col-md-6 media">
-                  <img src="img/photos/DeathtoStock_EnergyandSerenity2.jpg" class="img-fluid" />
+                  <img v-bind:src="city['cover_image']" class="img-fluid" />
                 </div>
                 <div class="col-md-6 caption">
-                  <p>{{ city.id }} <p>
                   <a v-bind:href="'/#/cities/' + city.id" class="post-title">{{ city.name }}, {{ city.state }}</a>
-                  <span class="post-date">Testing 1 2 3</span>
-                  <p class="post-description">City Bio to go here</p>
+                  <span class="post-date">{{city.geography.name}}</span>
+                  <p class="post-description">{{ city.short_bio }}</p>
                 </div>
               </div>
             </div>
@@ -690,7 +688,6 @@
         <div class="post">
           <!-- <img src="img/photos/DeathtoStockSerenity8.jpg" class="img-fluid" /> -->
 
-          <h1>My Google Map:</h1>
           <div id="map">
             
           </div>
@@ -707,13 +704,14 @@
                 </div>
                 <div class="modal-body">
                  Category: {{currentRecommendation.category}} <br>
-                  <a v-bind:href=currentRecommendation.main_url onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">See More on Recommendation</a>
+                 Recommendation posted by {{ currentRecommendation.user.first_name }} {{currentRecommendation.user.last_name}} <br> <br>
+                  <a v-bind:href="currentRecommendation.main_url" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">See More on Recommendation</a> <br>
+                  <a v-bind:href="'/#/trips/' + currentRecommendation.trip.id" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">View Trip With Recommendation</a>
                 </div>
                 <div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
               </div>
             </div>
@@ -724,12 +722,14 @@
               <span class="post-tag">#music</span>
               <h1>{{ city.name }}</h1>
             </div>
+            <p>{{ city.bio }}</a>.</p>
 
             <h2>Recommendations:</h2>
             <div class="block">
               <table class="table table-striped">
                 <thead>
                   <tr>
+                    <th>Icon</th>
                     <th>Name</th>
                     <th>Category</th>
                     <th>User</th>
@@ -737,6 +737,7 @@
                 </thead>
                 <tbody v-for="recommendation in city.recommendations">
                   <tr>
+                    <td><img v-bind:src=recommendation.icon_image></td>
                     <td>{{ recommendation.name }}</td>
                     <td>{{ recommendation.category }}</td>
                     <td>{{ recommendation.user.first_name }}</td>
@@ -750,7 +751,6 @@
               <li v-for="trip_activity in city.trip_activities">{{ trip_activity.activity.name }}</li>
             </ul>
 
-            <p>Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. <strong>Etiam rhoncus</strong>. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante <a href="#">tincidunt tempus</a>.</p>
           </div>
         </div>
       </div>
@@ -894,7 +894,8 @@
   <div class="vue-component">
     <div class="container">
       <h1>My Google Map:</h1>
-      <div id="map">
+      <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+      <div id="mainmap">
         
       </div>
     </div>

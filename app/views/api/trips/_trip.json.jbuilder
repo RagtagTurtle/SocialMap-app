@@ -1,4 +1,5 @@
 json.id trip.id
+json.user_id trip.user.id
 json.user_first_name trip.user.first_name
 json.user_last_name trip.user.last_name
 json.bio trip.bio
@@ -6,6 +7,7 @@ json.cover_image trip.cover_image
 json.climate trip.climate
 json.start_date trip.friendly_start_date
 json.end_date trip.friendly_end_date
+json.categories trip.categories
 
 json.name trip.name
 json.state_name trip.state_name

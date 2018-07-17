@@ -14,13 +14,6 @@ class Trip < ApplicationRecord
 
   enum climate: {hot: 0, warm: 1, mild: 2, crisp: 3, cold: 4}
 
-  has_attached_file :image
-
-  validates_attachment :image,
-    content_type: {
-      content_type: ["image/jpeg", "image/gif", "image/png"]
-    }
-
   def friendly_start_date
     start_date.strftime("%m/%d/%Y")
   end
@@ -55,6 +48,10 @@ class Trip < ApplicationRecord
 
   def longitude
     city_trips.order(:created_at).first.city.longitude if city_trips.any?
+  end
+
+  def categories
+    recommendations.map{ |recommendation| recommendation.category_pretty }.uniq
   end
 
   def last_created_trip

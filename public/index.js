@@ -199,7 +199,8 @@ var CitiesIndexPage = {
   template: "#cities-index-page",
   data: function() {
     return {
-      cities: []
+      cities: [],
+      nameFilter: ""
     };
   },
   created: function() {
@@ -209,7 +210,11 @@ var CitiesIndexPage = {
         this.cities = response.data;
       }.bind(this));
   },
-  methods: {},
+  methods: {
+    isValidCity: function(inputCity) {
+      return inputCity.name.includes(this.nameFilter);
+    },
+  },
   computed: {}
 };
 
@@ -230,7 +235,16 @@ var CitiesShowPage = {
         latitude: ""
       },
       currentRecommendation: {
-        name: ""
+        name: "",
+        trip: {
+          id: "",
+          user_id: ""
+        },
+        user: {
+          id: "",
+          first_name: "",
+          last_name: ""
+        }
       }
     };
   },
@@ -286,7 +300,7 @@ var CityTripsNewPage = {
   template: "#city-trips-new-page",
   data: function() {
     return {
-      trip_id: "",
+      trip_id: this.$route.trip_id,
       city_id: ""
     };
   },
@@ -423,23 +437,69 @@ var RecommendationsNewPage = {
   computed: {}
 };
 
+// var MapHomePage = {
+//   template: "#map-home-page",
+//   data: function() {
+//     return {};
+//   },
+//   created: function() {
+//     this.initMap();
+//   },
+//   methods: {
+//     initMap: function() {
+//         var options = {
+//         zoom: 12,
+//         center: {lat: 87.6298, lng: -41.8781}
+//       };
+//       // CREATING NEW MAP
+//       var map = new google.maps.Map(document.getElementById('map'), options);
+//     }
+//   },
+//   computed: {}
+// };
+
 var MapHomePage = {
   template: "#map-home-page",
   data: function() {
-    return {};
+    return {
+      city: {
+        id: "",
+        name: "",
+        state: "",
+        geography: {
+          id: "",
+          name: ""
+        },
+        region: "",
+        longitude: "",
+        latitude: ""
+      },
+      currentRecommendation: {
+        name: ""
+      }
+    };
   },
-  created: function() {},
+  created: function() {
+    axios
+      .get("/api/cities/")
+      .then(function(response) { 
+        this.city = response.data;
+        this.initMap();
+      }.bind(this));
+  },
   methods: {
     initMap: function() {
+        // MAP OPTIONS
         var options = {
-        zoom: 12,
-        center: {lat: parseFloat(this.city.latitude), lng: parseFloat(this.city.longitude)}
+        zoom: 4,
+        center: {lat: 41.8897, lng: -87.6302},
+        gestureHandling: 'greedy'
       };
       // CREATING NEW MAP
-      var map = new google.maps.Map(document.getElementById('map'), options);
-    }
+      var map = new google.maps.Map(document.getElementById('mainmap'), options);
+    },
   },
-  computed: {}
+  computed: {},
 };
 
 // PLACEHOLDER

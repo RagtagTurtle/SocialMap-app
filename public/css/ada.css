@@ -22,7 +22,7 @@ body {
 }
 
 a {
-  color: #FF7C26;
+  color: #0000FF;
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
 }
@@ -552,7 +552,7 @@ fieldset[disabled] .navbar-ada .btn-link:focus {
 
   #posts .post.big .caption,
   #posts .post.featured .caption {
-    margin: 50px auto;
+    margin: 0px auto;
     padding: 40px 40px 0;
   }
 }
