@@ -261,7 +261,7 @@
                   <p>{{ trip.user_first_name }} {{ trip.user_last_name }}'s Jaunt to<p>
                   <a v-bind:href="'/#/trips/' + trip.id" class="post-title">{{ trip.name }}</a>
                   <span class="post-date">{{ trip.start_date }} to {{ trip.end_date }}</span>
-                  <br>
+                  
                   <h4>Recommendations Include:</h4>
                   <ul>
                   <li v-for="recommendation in trip.categories">
@@ -545,7 +545,7 @@
                   <div class="modal-body">
                     Category: {{ currentRecommendation.category }} <br>
                     <a v-bind:href=currentRecommendation.main_url onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">See More on Recommendation</a> <br>
-                    <a v-bind:href="'/#/cities/' + currentRecommendation.city_id" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">View City</a>
+                    <a v-bind:href="'/#/cities/' + currentRecommendation.city_id" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">View More Recommendations in this City</a>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -893,7 +893,6 @@
 <template id="map-home-page">
   <div class="vue-component">
     <div class="container">
-      <h1>My Google Map:</h1>
       <input id="pac-input" class="controls" type="text" placeholder="Search Box">
       <div id="mainmap">
         
